@@ -43,3 +43,47 @@ function same(arr1, arr2) {
 console.log(same([1, 2, 3, 4], [1, 4, 9, 16])); // true
 console.log(same([1, 2, 3, 4], [1, 4, 9, 16, 16])); // false
 console.log(same([1, 2, 3, 4], [1, 4, 9, 16, 100])); //false
+
+
+/* PROBLEM 2
+
+Given 2 strings.
+Write a function to determine if the second string
+is an anagram of the first (e.g. "cinema" - "iceman");
+*/
+
+function isAnagram(str1, str2) {
+  // IF THE LENGTH OF THE STRINGS IS DIFFERENT, RETURN FALSE
+  if (str1.length !== str2.length) return false;
+
+  let obj = {};
+
+  // FILL THE OBJ WITH THE CHARACTERS OF THE STR1
+  // AND COUNT EACH CHAR
+  for (let elem of str1.toLowerCase()) {
+    obj[elem] ? (obj[elem] += 1) : (obj[elem] = 1);
+  }
+
+  // COMPARE THE OBJ VALUES TO THE CHARACTERS OF THE STR2
+  for (let elem of str2.toLowerCase()) {
+    // IF THE OBJ DOES NOT HAVE SUCH CHAR AS A KEY, RETURN FALSE
+    if (!elem in obj) return false;
+    // OTHERWISE, DEDUCT THE VALUE
+    obj[elem]--;
+  }
+
+  // CHECK THE OBJECT AFTRE COMPARING TO THE STR2:
+  // ALL THE VALUES AFTER DEDUCTION HAVE TO BE = 0
+  for (let key in obj) {
+    // IF THEY ARE BIGGER THAN 0, RETURN FALSE
+    if (obj[key] > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+}
+
+console.log(isAnagram("Cinema", "iceman")); // true
+console.log(isAnagram("cinema", "izeman")); // false
+console.log(isAnagram("cinema", "icemann")); // false
