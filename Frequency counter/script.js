@@ -7,13 +7,13 @@ The frequency of values must be the same.
 */
 
 function same(arr1, arr2) {
-  // CHECKING IF THE LENGTH OF THE ARRAYS IS THE SAME
+  // Compare the length of the arrays
   if (arr1.length !== arr2.length) {
     return false;
   }
 
-  // COUNTING THE ELEMENTS OF THE ARRAYS
-  // AND STORING THEM AS KEY-VALUE PAIRS IN OBJECTS
+  // Count the array elememts and store them
+  // as key-value pairs i objects
   let obj1 = {};
   let obj2 = {};
 
@@ -26,13 +26,14 @@ function same(arr1, arr2) {
   }
 
   for (let key in obj1) {
-    // CHECKING IF KEYS FROM THE OBJ1
-    // ARE EQUALS TO THE CORRECPONDING KEYS SQUARED OF THE OBJ2
+    // Check if the keys from obj1
+    // are equals to the corresponding keys squared
+    // of the obj2
     if (!(key ** 2 in obj2)) {
       return false;
     }
 
-    // CHECKING THE FREQUANCY OF THE VALUES
+    // Check the frequency of the values in the objects
     if (obj2[key ** 2] !== obj1[key]) {
       return false;
     }
@@ -44,7 +45,6 @@ console.log(same([1, 2, 3, 4], [1, 4, 9, 16])); // true
 console.log(same([1, 2, 3, 4], [1, 4, 9, 16, 16])); // false
 console.log(same([1, 2, 3, 4], [1, 4, 9, 16, 100])); //false
 
-
 /* PROBLEM 2
 
 Given 2 strings.
@@ -53,29 +53,28 @@ is an anagram of the first (e.g. "cinema" - "iceman");
 */
 
 function isAnagram(str1, str2) {
-  // IF THE LENGTH OF THE STRINGS IS DIFFERENT, RETURN FALSE
+  // If the length of the strings is different, return false
   if (str1.length !== str2.length) return false;
 
   let obj = {};
 
-  // FILL THE OBJ WITH THE CHARACTERS OF THE STR1
-  // AND COUNT EACH CHAR
+  // Fill the obj with the characters of the str1 and count each character
   for (let elem of str1.toLowerCase()) {
     obj[elem] ? (obj[elem] += 1) : (obj[elem] = 1);
   }
 
-  // COMPARE THE OBJ VALUES TO THE CHARACTERS OF THE STR2
+  // Compare the obj values to the characters of the str2
   for (let elem of str2.toLowerCase()) {
-    // IF THE OBJ DOES NOT HAVE SUCH CHAR AS A KEY, RETURN FALSE
+    // If the obj does not have such char as a key, return false
     if (!elem in obj) return false;
-    // OTHERWISE, DEDUCT THE VALUE
+    // Otherwise, deduct the value
     obj[elem]--;
   }
 
-  // CHECK THE OBJECT AFTRE COMPARING TO THE STR2:
-  // ALL THE VALUES AFTER DEDUCTION HAVE TO BE = 0
+  // Check the object after comparing to str2:
+  // all the values after deduction have to be equal to 0
   for (let key in obj) {
-    // IF THEY ARE BIGGER THAN 0, RETURN FALSE
+    // If they are bigger than 0, return false
     if (obj[key] > 0) {
       return false;
     } else {
@@ -87,3 +86,32 @@ function isAnagram(str1, str2) {
 console.log(isAnagram("Cinema", "iceman")); // true
 console.log(isAnagram("cinema", "izeman")); // false
 console.log(isAnagram("cinema", "icemann")); // false
+
+/* PROBLEM 3
+
+Write a function called sameFrequency.
+Given two positive integers, find out
+if the two numbers have the same digits and frequency of digits.
+*/
+
+function sameFrequency(str1, str2) {
+  // Transform the numbers into the array of strings
+  let arr1 = str1.toString().split("");
+  let arr2 = str2.toString().split("");
+
+  // Compare the length of the arrays
+  if (arr1.length !== arr2.length) return false;
+
+  // If arr2 does not include an element from arr1, retirn false
+  for (let i = 0; i < arr1.length; i++) {
+    if (!arr2.includes(arr1[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+console.log(sameFrequency(182, 281)); // true
+console.log(sameFrequency(34, 14)); // false
+console.log(sameFrequency(3589578, 5879385)); // true
+console.log(sameFrequency(22, 222)); // false
