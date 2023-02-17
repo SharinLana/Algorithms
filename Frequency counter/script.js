@@ -115,3 +115,32 @@ console.log(sameFrequency(182, 281)); // true
 console.log(sameFrequency(34, 14)); // false
 console.log(sameFrequency(3589578, 5879385)); // true
 console.log(sameFrequency(22, 222)); // false
+
+/* PROBLEM 4
+
+Implement a function 
+which accepts a variable number of arguments, 
+and checks whether there are any duplicates among the arguments passed in.  
+*/
+
+function areThereDuplicates(...args) {
+  // Create an empty object
+  let obj = {};
+
+  for (let elem of args) {
+    // and store the arguments in the object, counting their frequency
+    obj[elem] ? (obj[elem] += 1) : (obj[elem] = 1);
+
+    // Then check, if the value of the object key is bigger than 1
+    if (obj[elem] > 1) {
+      // If it is, then we do have duplicates
+      return true;
+    }
+  }
+  // Otherwise, here are no duplicates
+  return false;
+}
+
+console.log(areThereDuplicates(1, 2, 3)); // false
+console.log(areThereDuplicates(1, 2, 2)); // true
+console.log(areThereDuplicates("a", "b", "c", "a")); // true
